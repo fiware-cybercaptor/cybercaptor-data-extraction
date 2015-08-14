@@ -21,8 +21,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
-engine = create_engine('sqlite:///./database-full.db', convert_unicode=True, echo=False)
+database_default_path = "./database-full.db"
+engine = create_engine('sqlite:///' + str(os.getenv('VULNERABILITY_DATABASE_PATH', database_default_path)), convert_unicode=True, echo=False)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
