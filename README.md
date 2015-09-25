@@ -51,6 +51,7 @@ This execution of the script parse the following inputs files:
 
 It produces one output file:
   - `./output/topology-generated.xml`: The XML file containing the description of the whole network topology.
+	The exhaustive description of this XML file is provided in [./doc/topology-file-specifications.md](./doc/topology-file-specifications.md).
 
 Here is the complete script manual:
 
