@@ -49,6 +49,8 @@ This execution of the script parse the following inputs files:
   - `./inputs/scan.nessus`: The XML file output of the Nessus scanner.
   - `./inputs/routing.csv`: The CSV file describing the routes of the routers.
 
+The complete description of the inputs files can be found in [./doc/inputs-file-specifications.md](./doc/inputs-file-specifications.md).
+
 It produces one output file:
   - `./output/topology-generated.xml`: The XML file containing the description of the whole network topology.
 	The exhaustive description of this XML file is provided in [./doc/topology-file-specifications.md](./doc/topology-file-specifications.md).
