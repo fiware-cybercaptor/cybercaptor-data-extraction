@@ -97,11 +97,11 @@ router;0.0.0.0;0.0.0.0;1.1.1.1;eth2
 
 ## Vulnerability scanner files 
 
-Currently, the only vulnerability scanner files that can be used are the outputs of Nessus. 
+Currently, two vulnerability scanners can be used: Nessus and OpenVAS.
 
 ### Nessus scanner files
 
-The output of the vulnerability scanner Nessus are stored in a .nessus file, which is an XML file.
+The outputs of the vulnerability scanner Nessus are stored in a .nessus file, which is an XML file.
 
 The only outputs that are used in this file are:
 ```
@@ -115,4 +115,8 @@ The only outputs that are used in this file are:
 ...
 </ReportItem>
 ```
+
+### OpenVAS files
+
+The outputs of the vulnerability scanner OpenVAS are stored in an XML file.
 

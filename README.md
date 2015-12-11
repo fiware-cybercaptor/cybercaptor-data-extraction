@@ -58,13 +58,16 @@ It produces one output file:
 Here is the complete script manual:
 
 ```
-usage: main.py [-h] --hosts-interfaces-file HOSTS_INTERFACES_FILE --vlans-file
-               VLANS_FILE --vulnerability-scan VULNERABILITY_SCAN
-               [VULNERABILITY_SCAN ...] [--flow-matrix-file FLOW_MATRIX_FILE]
-               [--routing-file ROUTING_FILE]
-               [--mulval-output-file MULVAL_OUTPUT_FILE]
-               [--to-fiware-xml-topology TO_FIWARE_XML_TOPOLOGY]
-               [--display-infos] [-v] [-vv]
+usage: main.py [-h] --hosts-interfaces-file HOSTS_INTERFACES_FILE 
+	--vlans-file VLANS_FILE 
+	[--vulnerability-scan VULNERABILITY_SCAN [VULNERABILITY_SCAN ...]]
+	[--openvas-scan OPENVAS_VULNERABILITY_SCAN [OPENVAS_VULNERABILITY_SCAN ...]] 
+	[--flow-matrix-file FLOW_MATRIX_FILE] 
+	[--routing-file ROUTING_FILE] 
+	[--mulval-output-file MULVAL_OUTPUT_FILE] 
+	[--to-fiware-xml-topology TO_FIWARE_XML_TOPOLOGY] 
+	[--display-infos] 
+	[-v] [-vv]
 
 Generates attack graph input files from topological files
 
@@ -76,6 +79,8 @@ optional arguments:
                         The CSV file containing the VLANS.
   --vulnerability-scan VULNERABILITY_SCAN [VULNERABILITY_SCAN ...]
                         The Nessus scanner report file(s).
+  --openvas-scan OPENVAS_VULNERABILITY_SCAN [OPENVAS_VULNERABILITY_SCAN ...]
+                        The OpenVAS scanner report file(s).
   --flow-matrix-file FLOW_MATRIX_FILE
                         The CSV file containing the flow matrix
   --routing-file ROUTING_FILE
