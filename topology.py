@@ -309,6 +309,61 @@ class Topology:
         logging.info(
             str(number_of_added_vulnerabilities) + " vulnerabilities where added thanks to this vulnerability scan.")
 
+    def add_openvas_report_information(self, nessus_file_path):
+        logging.info("Loading in memory the vulnerability database")
+        vulnerability_database = load_vulnerability_database()
+
+        logging.info("Parsing the OpenVAS file : " + nessus_file_path)
+        tree = parse(nessus_file_path)
+        root = tree.getroot()
+
+        number_of_treated_host = 0
+        number_of_added_vulnerabilities = 0
+
+        assert isinstance(root, Element)
+        results = root.findall("report")
+        results2 = results[0].findall("results")
+
+         # For all hosts
+        for report_host in results2[0].findall("result"):
+            assert isinstance(report_host, Element)
+            host_name_or_ip = report_host.findall('host')[0].text
+            logging.info("Found host in openvas report '" + host_name_or_ip + "'")
+            host = self.get_host_by_ip(host_name_or_ip)
+            if not host:
+                logging.warning(
+                    "Host '" + host_name_or_ip + "' was not found in the topology. Added it as unknown host.")
+                host = self.add_unknown_host_by_ip(host_name_or_ip)
+
+            number_of_treated_host += 1
+
+            # Services for this host
+
+            port_and_prot = report_host.findall('port')[0].text.split('/')
+            port = port_and_prot[0]
+            svc_name = report_host.findall("name")[0].text.lower()
+            protocol = port_and_prot[1]
+
+            service = Service(svc_name, host_name_or_ip, port, protocol)
+
+            logging.debug(
+                    "Vulnerable service : '" + svc_name + "' exposed on port " + str(
+                        port) + " using protocol " + protocol)
+
+            host.add_service(service)
+
+                #Vulnerabilities for this service
+            for cve_item in report_host.findall('nvt'):
+                assert isinstance(cve_item, Element)
+                cve = cve_item.findall("cve")[0].text
+                service.add_vulnerability(cve, vulnerability_database)
+                number_of_added_vulnerabilities += 1
+
+        logging.info(
+            str(number_of_treated_host) + " hosts where found both in the topology and the vulnerability scan.")
+        logging.info(
+            str(number_of_added_vulnerabilities) + " vulnerabilities where added thanks to this vulnerability scan.")
+
     def to_mulval_input_file(self, mulval_input_file_path):
         logging.info("Export the topology as mulval input file.")
         # TODO (priority low): don't add to the file a line that was already added (suppress useless duplicates)
